@@ -27,9 +27,11 @@ def parse_input():
 
     # The if statement is checking if the input is hexidecimal or not
     # hex should start with either "0x" or "#"
-    if user_input.lower().startswith("0x") or user_input.startswith("#"):
+    if user_input.lower().startswith("0x"):
         # will call the function that converts the actual inputs, in this case hex is True
         return(convert_inputs(user_input, True))
+    if user_input.startswith("#"):
+        return(convert_inputs(user_input[1:], True))
 
     else:
         return(convert_inputs(user_input, False))

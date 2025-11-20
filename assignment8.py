@@ -1,8 +1,9 @@
 def main():
     intro = (
         "This program takes either a Hexidecimal number or a Decimal number and converts it to Binary.\n"
-        "Hex values should include either 0x or # at the beginning.\n"
-        "Decimal numbers can be input regularly.\n"
+        "Hex values should include either '0x' or '#' at the beginning. (0-F)\n"
+        "Octodecimal numbers should begin with '0o'.(0-7)\n"
+        "Decimal numbers can be input regularly.(0-9)\n"
     )
 
     print(intro)
@@ -25,20 +26,23 @@ def parse_input():
     # Gets the user's input. It should be either hex or decimal
     user_input = input("Input your number here : ")
 
-    # The if statement is checking if the input is hexidecimal or not
     # hex should start with either "0x" or "#"
+    # octo is 0o and decimal is regular
     if user_input.lower().startswith("0x"):
-        # will call the function that converts the actual inputs, in this case hex is True
-        return(convert_inputs(user_input, True))
-    if user_input.startswith("#"):
-        return(convert_inputs(user_input[1:], True))
+        return(convert_inputs(user_input, "hex"))
+
+    elif user_input.startswith("#"):
+        return(convert_inputs(user_input[1:], "hex"))
+
+    elif user_input.startswith("0o"):
+        return(convert_inputs(user_input, "octo"))
 
     else:
-        return(convert_inputs(user_input, False))
+        return(convert_inputs(user_input, "decimal"))
 
-def convert_inputs(input_to_convert, is_hex):
+def convert_inputs(input_to_convert, input_type):
     # When this function is called it is passed either True or False for is_hex
-    if is_hex:
+    if input_type == "hex":
         try: # if unable to convert the input to binary it will throw an exception
             converted_input = bin(int(input_to_convert, 16))[2:] # the [2:] removes the 0b python adds
             return ("Hexidecimal", converted_input)
@@ -46,13 +50,22 @@ def convert_inputs(input_to_convert, is_hex):
             converted_input = "invalid"
             return("invalid", converted_input)
 
-    else:
+    elif input_type == "octo":
+        try:
+            converted_input = bin(int(input_to_convert, 8))[2:]
+            return("Octodecimal", converted_input)
+        except ValueError:
+            converted_input = "invalid"
+            return("invalid", converted_input) 
+
+    else: # decimal and all other cases
         try:
             converted_input = bin(int(input_to_convert, 10))[2:]
             return("Decimal", converted_input)
         except ValueError:
             converted_input = "invalid"
             return("invalid", converted_input) 
+    
 
 # this will simply run the main() function
 main()

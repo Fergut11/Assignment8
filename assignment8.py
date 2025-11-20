@@ -5,7 +5,14 @@ def main():
         "Decimal numbers can be input regularly.\n"
     )
     print(intro)
-    print(parse_input())
+    while True:
+        result_type, result_value = parse_input()
+        if result_type != "invalid":
+            print(f"\nYour original value was {result_type} and converts {result_value} in Binary. ")
+            break
+        else:
+            print("\nPlease input a valid value to be converted.\n")
+
 
 def parse_input():
     user_input = input("Input your number here : ")
@@ -19,14 +26,14 @@ def convert_inputs(input_to_convert, is_hex):
     if is_hex:
         try:
             converted_input = bin(int(input_to_convert, 16))[2:]
-            return ("hex", converted_input)
+            return ("Hex to Binary", converted_input)
         except ValueError:
             converted_input = "invalid"
             return("invalid", converted_input)
     else:
         try:
             converted_input = bin(int(input_to_convert, 10))[2:]
-            return("decimal", converted_input)
+            return("Decimal to Binary", converted_input)
         except ValueError:
             converted_input = "invalid"
             return("invalid", converted_input) 

@@ -1,9 +1,14 @@
 def main():
-    print("This is the main function")
+    intro = (
+        "This program takes either a Hexidecimal number or a Decimal number and converts it to Binary.\n"
+        "Hex values should include either 0x or # at the beginning.\n"
+        "Decimal numbers can be input regularly.\n"
+    )
+    print(intro)
     print(parse_input())
 
 def parse_input():
-    user_input = input("Input either a hex or decimal value here")
+    user_input = input("Input your number here : ")
     if user_input.lower().startswith("0x") or user_input.startswith("#"):
         return(convert_inputs(user_input, True))
 

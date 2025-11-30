@@ -1,3 +1,5 @@
+import sys
+
 def main():
     intro = (
         "This program takes either a Hexidecimal, Octodecimal, or Decimal number and converts it to Binary.\n"
@@ -25,7 +27,10 @@ def main():
 
 def parse_input():
     # Gets the user's input. It should be either hex or decimal
-    user_input = input("Input your number here : ")
+    if len(sys.argv) > 1:
+        user_input = sys.argv[1]
+    else:
+        user_input = input("Input your number here : ")
 
     # hex should start with either "0x" or "#"
     # octo is 0o and decimal is regular
@@ -42,7 +47,7 @@ def parse_input():
         return(convert_inputs(user_input, "decimal"))
 
 def convert_inputs(input_to_convert, input_type):
-    # When this function is called it is passed either True or False for is_hex
+    # When this function is calledc it is passed either True or False for is_hex
     if input_type == "hex":
         try: # if unable to convert the input to binary it will throw an exception
             converted_input = bin(int(input_to_convert, 16))[2:] # the [2:] removes the 0b python adds
